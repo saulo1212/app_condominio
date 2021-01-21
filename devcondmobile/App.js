@@ -1,7 +1,8 @@
 
 import React from 'react';
-import {View,Button} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import  {StateProvider} from './src/context/StateContext';
+import AuthStack from './src/stacks/AuthStack';
 
 
 export default  () => {
@@ -11,9 +12,9 @@ export default  () => {
   return (
     <>
       <StateProvider>
-          <View >
-            <Button title="Suportesss" />
-          </View>
+          <NavigationContainer>
+                <AuthStack />
+          </NavigationContainer>
       </StateProvider>
     </>
   );
