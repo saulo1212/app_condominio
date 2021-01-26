@@ -54,7 +54,7 @@ export default () => {
     }, []);
 
     const handleLogout = async ()  => {
-        await api.logout();
+        //await api.logout();
         navigation.reset({
             index:1,
             routes:[{name:'LoginScreen'}]

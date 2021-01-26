@@ -19,6 +19,33 @@ export default () => {
         navigation.setOptions({headerTitle:"Cadastro"})
     },[]);
 
+    const handleRegisterButton = async () => {
+        if(name && email && cpf && password && passwordConfir){
+            let result = await api.register(name,email,cpf,password, passwordConfir);
+
+            if(result.error === ''){
+                dispatch({
+                    type:'setToken',
+                    payload:{ token: result.token}
+                });
+
+                dispatch({
+                    type:'setUser',
+                    payload:{user:result.user}
+                });
+
+                navigation.reset({
+                    index:1,
+                    routes:[{name:'ChoosePropertScreen'}]
+                });
+            }else{
+                alert(result.error)
+            }
+        }else{
+            alert("campos vazios")
+        }
+    }
+
     return(
         <C.Container>
 
@@ -52,7 +79,7 @@ export default () => {
                 onChangeText={t=>setPasswordConfir(t)}
             />
 
-            <C.ButtonArea onPress={null}>
+            <C.ButtonArea onPress={handleRegisterButton}>
                 <C.ButtonText>CADASTRAR</C.ButtonText>
             </C.ButtonArea>
         </C.Container>  
