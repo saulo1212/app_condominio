@@ -18,6 +18,7 @@ export default () => {
 
             if(property){
                 property = JSON.parse(property);
+                await shoseProperty(property)
 
             }
 
@@ -36,6 +37,22 @@ export default () => {
         });
     }
 
+
+    const shoseProperty = async (property) => {
+        await AsyncStorage.setItem('property', JSON.stringify(property));
+
+        dispatch({
+            type: 'setProperty',
+            payload:{property}
+        });
+
+        navigation.reset({
+            index:1,
+            routes:[{name: 'MainDrawer'}]
+        });
+
+    }
+
     return(
         <C.Container>
             <C.Scroller>
@@ -49,7 +66,7 @@ export default () => {
 
                         <C.PropertyList>
                             {context.user.user.properties.map((item,index) => (
-                                <C.ButtonArea key={index} onPress={null}>
+                                <C.ButtonArea key={index} onPress={() => shoseProperty(item)}>
                                     <C.ButtonText>{item.name}</C.ButtonText>
                                 </C.ButtonArea>
                             ))}
@@ -68,8 +85,8 @@ export default () => {
                     </C.BigArea>
                 }
             </C.Scroller>
-            <C.ExiButtonArea onPress={handleLogout}>
-                <C.ExitButtonText>Sair</C.ExitButtonText>
+            <C.ExiButtonArea >
+                <C.ExitButtonText onPress={handleLogout}>Sair</C.ExitButtonText>
             </C.ExiButtonArea>
         </C.Container>
     )
