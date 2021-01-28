@@ -27,10 +27,10 @@ export default () => {
                     payload:{user:result.user}
                 });
 
-                //navigation.reset({
-                  //  index:1,
-                   // routes:[{name:'ChoosePropertScreen'}]
-              //  });
+                navigation.reset({
+                    index:1,
+                    routes:[{name:'ChoosePropertScreen'}]
+                });
 
             }else{
                 alert(result.error);
