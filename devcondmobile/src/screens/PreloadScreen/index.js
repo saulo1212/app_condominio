@@ -53,18 +53,10 @@ export default () => {
         checkLogin();
     }, []);
 
-    const handleLogout = async ()  => {
-        //await api.logout();
-        navigation.reset({
-            index:1,
-            routes:[{name:'LoginScreen'}]
-        });
-    }
 
     return(
         <C.Container>
             <C.LoadingIcon color="#8863e6" size="large" />
-            <C.Button title="SAIR" onPress={handleLogout} />
         </C.Container>  
     );
 };
