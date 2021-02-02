@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useStateValue} from '../../context/StateContext';
 import C from  './style';
 import api from '../../services/api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Wallitem from '../../components/Wallitem';
 
 export default () => {
 
@@ -47,6 +47,12 @@ export default () => {
                         <C.NoListText>Não ha avisos</C.NoListText>  
                     </C.NoListArea>
                 }
+
+                <C.List
+                    data={wallList}
+                    renderItem={({item}) => <Wallitem data={item} />}
+                    keyExtractor={(item)=> item.id.toString()}
+                />
                 
         </C.Container>
     )

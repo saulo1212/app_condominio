@@ -4,6 +4,7 @@ export default {
     Container: styled.SafeAreaView`
         flex:1;
         background-color:#f5f6fa;
+        padding:20px;
     `,
    
     LoadingIcon: styled.ActivityIndicator``,
@@ -15,5 +16,8 @@ export default {
     NoListText: styled.Text`
         font-size:15px;
         color:#000
+    `,
+    List: styled.FlatList`
+        flex:1;
     `
 }
