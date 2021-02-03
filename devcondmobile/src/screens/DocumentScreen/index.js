@@ -3,31 +3,31 @@ import {useNavigation} from '@react-navigation/native';
 import {useStateValue} from '../../context/StateContext';
 import C from  './style';
 import api from '../../services/api';
-import Wallitem from '../../components/Wallitem';
+import DocItem from '../../components/DocItem';
 
 export default () => {
 
     const navigation             = useNavigation();
     const[context,dispatch]      = useStateValue();
-    const[wallList, setWallList] = useState([]);
+    const[docList, setDoclList] = useState([]);
     const[loading,setLoading]    = useState(false);
 
     useEffect(() => {
-        navigation.setOptions({headerTitle: 'Mural de avisos'});
-        getWall();
+        navigation.setOptions({headerTitle: 'Documentos do condominio'});
+        getDocs();
     },[]);
 
-    const getWall =  async () => {
+    const getDocs =  async () => {
 
-        setWallList([]);
+        setDoclList([]);
         setLoading(true);
 
-            const result = await api.getWall();
+            const result = await api.getDocs();
             
         setLoading(false);
 
         if(result.error === ''){
-           setWallList(result.list);
+            setDoclList(result.list);
         }else{
             alert(result.error);
         }
@@ -36,17 +36,17 @@ export default () => {
     return(
         <C.Container>
            
-                {!loading && wallList.length === 0 &&
+                {!loading && docList.length === 0 &&
                     <C.NoListArea>
-                        <C.NoListText>Não ha avisos</C.NoListText>  
+                        <C.NoListText>Não ha documentos</C.NoListText>  
                     </C.NoListArea>
                 }
 
                 <C.List
-                    data={wallList}
-                    onRefresh={getWall}
+                    data={docList}
+                    onRefresh={getDocs}
                     refreshing={loading}
-                    renderItem={({item}) => <Wallitem data={item} />}
+                    renderItem={({item}) => <DocItem data={item} />}
                     keyExtractor={(item)=> item.id.toString()}
                 />
                 
