@@ -82,4 +82,15 @@ export default {
         
         return json;
     },
+    getBillets: async () => {
+        let token = await AsyncStorage.getItem('token');
+        let property = await AsyncStorage.getItem('property');  
+        property = JSON.parse(property);   
+        
+        let json = await request('get', '/billets', {
+            property: property.id
+        }, token);
+        
+        return json;
+    },
 }
