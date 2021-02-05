@@ -19,7 +19,10 @@ const request = async (method, endpoint, params,token = null) => {
         break;
     }
 
-    let headers = {'Content-Type': 'application/json'};
+    let headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+    };
 
     if(token){
         headers.Authorization = `Bearer ${token}`;
@@ -83,14 +86,25 @@ export default {
         return json;
     },
     getBillets: async () => {
+        let token = await AsyncStorage.getItem('token');     
+        let property = await AsyncStorage.getItem('property');  
+        property = JSON.parse(property);   
+        
+        let json = await request('get', '/billets',{property: property.id},token);
+        
+        return json;
+    },
+
+    getWarnings: async () => {
         let token = await AsyncStorage.getItem('token');
         let property = await AsyncStorage.getItem('property');  
         property = JSON.parse(property);   
         
-        let json = await request('get', '/billets', {
+        let json = await request('get', '/warnings', {
             property: property.id
         }, token);
         
+        
         return json;
-    },
+    }
 }
