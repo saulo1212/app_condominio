@@ -1,5 +1,5 @@
-import React from 'react';
-import {Linking} from 'react-native';
+import React,{useState} from 'react';
+import {Modal} from 'react-native';
 import  styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import style from '../screens/WarningScreen/style';
@@ -49,10 +49,30 @@ const PhotoImage = styled.Image`
     border-radius:10px;
 `;
 
+const ModalArea = styled.View`
+    flex:1;
+    background-color:#000;
+`;
+const ModalImage = styled.Image`
+    flex:1;
+
+`;
+
+const ModalCloseButton = styled.TouchableNativeFeedback`
+    width:30px;
+    height:30px;
+    poistion:absolute;
+    top:15px;
+    right:10px;
+`;
+
 
 
 
 export default ({data}) => {
+
+    const [showModal,setShowModal] = useState(false);
+    const [modalImage,setModalImage] = useState('');
 
   const  handleClick = async () => {
     const supported = await Linking.canOpenURL(data.fileurl);
@@ -60,7 +80,12 @@ export default ({data}) => {
         await Linking.openURL(data.fileurl);
     }
   }
-    
+
+  const openModal = (img) => {
+      setModalImage(img);
+      setShowModal(true)
+  }    
+
 
     return(
         <Box onPress={handleClick}>
@@ -76,12 +101,25 @@ export default ({data}) => {
             {data.photos > 0 &&
                 <PhotosArea>
                     {data.photos.map((item, index)=> (
-                        <PhotoItem key={index} onPress={null}>
+                        <PhotoItem key={index} onPress={() => openModal(item)}>
                             <PhotoImage source={{uri:item}} resizeMode="cover" />
                         </PhotoItem>
                     ))}
                 </PhotosArea>
             }
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={showModal}
+            >
+                 <ModalArea>
+                     <ModalImage source={{uri:modalImage}} resizeMode="contain" />
+                     <ModalCloseButton onPress={() => setShowModal(false)}>
+                         <Icon  name="close" size={24} color="#fff" />
+                     </ModalCloseButton>
+                 </ModalArea>   
+            </Modal>
         </Box>
     );
 }
