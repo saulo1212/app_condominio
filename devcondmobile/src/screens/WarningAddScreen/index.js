@@ -13,6 +13,7 @@ export default () => {
 
     const[warnText,setWarnText] = useState('');
     const[photoList,setPhotoList] = useState([]);
+    const[loading,setLoading] = useState(false);
     
 
     useEffect(() => {
@@ -29,9 +30,9 @@ export default () => {
         }, async (response) =>{
 
             if(!response.didCancel){
-                
+                setLoading(true);
                 let result = await api.addWarningFile(response);
-                
+                setLoading(false);
                 if(result.error === ''){
                     let list = [...photoList];
                     list.push(result.photoList);
@@ -41,6 +42,12 @@ export default () => {
                 }
             }
         });
+    }
+
+    const handleDelPhoto = (url) => {
+        let list = [...photoList];
+        list = list.filter(value => value !== url);
+        setPhotoList(list);
     }
 
 
@@ -64,14 +71,17 @@ export default () => {
                         </C.PhotoAddButton>
                         {photoList.map((item,index) => (
                             <C.PhotoItem key={index} >
-                                <C.Photo source={{uri:item}} />
-                                <C.PhotoRemoveButton  onPress={null}>
+                                <C.Photo source={{uri: item}} />
+                                <C.PhotoRemoveButton  onPress={() => handleDelPhoto(item)}>
                                     <Icon name="remove" size={16} color="#ff0000" />
                                 </C.PhotoRemoveButton>
                             </C.PhotoItem>
                         ))}
                     </C.PhotoScroll>
                 </C.PhotoArea>
+                {loading &&
+                    <C.LoadingText>Enviando Foto...</C.LoadingText>
+                }
 
                 <C.ButtonArea onPress={null}>
                     <C.ButtonText>Salvar</C.ButtonText>

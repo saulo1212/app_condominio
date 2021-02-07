@@ -67,5 +67,9 @@ export default {
         border-radius:5px;
     `,
     PhotoRemoveButton : styled.TouchableOpacity``,
+    LoadingText: styled.Text`
+        font_size:15px;
+        margin:10px 0;
+    `
 
 }
