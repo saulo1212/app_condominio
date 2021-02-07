@@ -145,5 +145,12 @@ export default {
         
         
         return json;
+    },
+
+    getReservations: async () => {
+        let token = await AsyncStorage.getItem('token');     
+        let json = await request('get', '/reservations', {}, token);
+        
+        return json;
     }
 }
