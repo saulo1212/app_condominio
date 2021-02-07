@@ -35,7 +35,7 @@ export default () => {
 
     return(
         <C.Container>
-            <C.Scroller>
+            <C.Scroller contentContainerStyle={{paddingBottom:40}}>
                 <C.ButtonArea onPress={null}>
                     <C.ButtonText>Minhas Reservas</C.ButtonText>
                 </C.ButtonArea>
