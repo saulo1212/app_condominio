@@ -72,7 +72,7 @@ export default ({data}) => {
     return(
         <Box>
             <HeaderArea>
-                <Icon  name="newspaper-o" size={30} color="8b63e7" />
+                <Icon  name="newspaper-o" size={30} color="#8b63e7" />
                 <InfoArea>
                     <Title>{data.title}</Title>
                     <Date>{data.datecreated}</Date>

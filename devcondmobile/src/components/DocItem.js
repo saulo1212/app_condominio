@@ -35,7 +35,7 @@ export default ({data}) => {
 
     return(
         <Box onPress={handleClick}>
-            <Icon  name="file-text" size={30} color="8b63e7" />
+            <Icon  name="file-text" size={30} color="#8b63e7" />
             <Title>{data.title}</Title>
         </Box>
     );

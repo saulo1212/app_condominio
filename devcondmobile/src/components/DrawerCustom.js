@@ -158,7 +158,7 @@ export default (props) => {
                     <FooterUnitText>{context.user.property.name}</FooterUnitText>
                 </FooterInfo>
                 <FooterUnitButton onPress={() => navigation.navigate('UnitScreen')}>
-                    <Icon name="gear" size={24} color="#66e78" />
+                    <Icon name="gear" size={24} color="#666e78" />
                 </FooterUnitButton>
             </FooterArea>
         </DrawerArea>

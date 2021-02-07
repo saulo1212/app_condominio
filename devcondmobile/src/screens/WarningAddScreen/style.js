@@ -50,5 +50,22 @@ export default {
         font-size:15px;
         font-weight:bold;
         color:#fff;
-    `
+    `,
+    PhotoItem: styled.View`
+        width:65px;
+        border-width:1px;
+        border-color:#ccc;
+        border-radius:5px;
+        padding-bottom:5px;
+        margin-left:5px;
+        align-items:center;
+    `,
+    Photo: styled.Image`
+        width:63px;
+        height:63px;
+        margin-bottom:5px;
+        border-radius:5px;
+    `,
+    PhotoRemoveButton : styled.TouchableOpacity``,
+
 }
