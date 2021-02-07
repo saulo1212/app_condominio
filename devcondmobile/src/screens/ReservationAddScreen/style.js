@@ -16,6 +16,9 @@ export default {
 
     CoverImage: styled.Image`
         height:150px;
+    `,
+    CalendarArea: styled.View`
+        margin: 20px
     `
    
 }
