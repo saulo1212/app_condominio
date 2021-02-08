@@ -120,6 +120,24 @@ export default () => {
         }
     }
 
+    const handleSave = async () => {
+        if(selectedDate && selectedTime){
+            const result = await api.setReservation(
+                route.params.data.id,
+                selectedDate,
+                selectedTime
+            );
+
+            if(result.error === ''){
+                navigation.navigate('ReservationMyScreen');
+            }else{
+                alert(result.error)
+            }
+        }else{
+            alert("Informe uma data e horario");
+        }
+    }
+
     return(
         <C.Container>
             <C.Scroller ref={scroll} contentContainerStyle={{paddingBottom:40}}>
@@ -164,6 +182,11 @@ export default () => {
                     </>
                 }
             </C.Scroller>  
+            {!loading &&
+                <C.ButtonArea onPress={handleSave}>
+                    <C.ButtonText>Reservar Local</C.ButtonText>
+                </C.ButtonArea>
+            }
         </C.Container>
     )
 }

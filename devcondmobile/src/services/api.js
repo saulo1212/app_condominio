@@ -164,5 +164,19 @@ export default {
         let json = await request('get', `/reservation/${id}/times`, {date}, token);
         
         return json;
+    },
+
+    setReservation: async (id, date, time) => {
+
+        let token = await AsyncStorage.getItem('token');
+        let property = await AsyncStorage.getItem('property');  
+        property = JSON.parse(property); 
+
+        let json = await request('post', `/reservation/${id}`, {
+            property: property.id,
+            date,time
+        }, token);
+
+        return json;
     }
 }
