@@ -11,14 +11,18 @@ export default () => {
     const maxDate = new Date();
     maxDate.setMonth(maxDate.getMonth() + 3);
 
-    let days  = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'];
+    let days  = ['Dom','Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
     let months = ['Janeiro','Fevereiro', 'Março', 'Abril','Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'] 
 
     const navigation             = useNavigation();
     const route                  = useRoute();
     const[context,dispatch]      = useStateValue();
    
-    const[loading,setLoading]    = useState(false);
+    const[loading,setLoading]    = useState(true);
+    const[disableDates, setDisableDates] = useState([]);
+    const[selectedDate,setSelectedDate] = useState(null);
+    const[timeList,setTimeList] = useState([]);
+    const[selectedTime,setSelectedTime] = useState(null);
 
     useEffect(() => {
 
@@ -27,11 +31,40 @@ export default () => {
             navigation.setOptions({
                 headerTitle: `Reservar ${route.params.data.title}`
             });
+
+            getDisabledDates();
         });
         
         return unsubscribe;
         
     },[navigation, route]);
+
+    const getDisabledDates = async () => {
+        setDisableDates([]);
+        setTimeList([]);
+        setSelectedDate(null);
+        setSelectedTime(null);
+        setLoading(true);
+
+        const result = await api.getDisabledDates(route.params.data.id);
+        setLoading(false);
+
+        if(result.error === ''){
+
+            let dateList = [];
+
+            for(let i in result.list){
+                dateList.push(new Date(result.list[i]));
+            }
+
+            setDisableDates(dateList);
+
+        }else{
+            alert(result.error)
+        }
+
+
+    }
 
     const handleDateChange = () => {
 
@@ -49,6 +82,7 @@ export default () => {
                     <C.CalendarArea>
                         <CalendarPicker 
                             onDateChange={handleDateChange}
+                            disabledDates={disableDates}
                             minDate={minDate}
                             maxDate={maxDate}
                             weekdays={days}
