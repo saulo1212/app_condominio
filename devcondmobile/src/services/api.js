@@ -158,5 +158,11 @@ export default {
         let json = await request('get', `/reservation/${id}/disableddates`, {}, token);
         
         return json;
+    },
+    getReservationTimes: async (id,date) => {
+        let token = await AsyncStorage.getItem('token');     
+        let json = await request('get', `/reservation/${id}/times`, {date}, token);
+        
+        return json;
     }
 }
