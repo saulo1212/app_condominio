@@ -178,5 +178,17 @@ export default {
         }, token);
 
         return json;
+    },
+    getMyReservations: async () => {
+
+        let token = await AsyncStorage.getItem('token');
+        let property = await AsyncStorage.getItem('property');  
+        property = JSON.parse(property); 
+
+        let json = await request('get', 'myreservations',{
+            property: property.id
+        },token);
+
+        return json;
     }
 }
