@@ -17,6 +17,14 @@ export default () => {
         getList();
     },[]);
 
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            getList();
+        });
+
+        return unsubscribe;
+    },[navigation]);
+
     const getList=  async () => {
 
         setList([]);
@@ -46,7 +54,7 @@ export default () => {
                     data={list}
                     onRefresh={getList}
                     refreshing={loading}
-                    renderItem={({item}) => <MyReservationItem data={item} />}
+                    renderItem={({item}) => <MyReservationItem data={item} refreshFunction={getList} />}
                     keyExtractor={(item)=> item.id.toString()}
                 />
                 
