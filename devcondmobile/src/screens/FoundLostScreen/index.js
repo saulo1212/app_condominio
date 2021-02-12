@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useStateValue} from '../../context/StateContext';
 import C from  './style';
 import api from '../../services/api';
-import DocItem from '../../components/DocItem';
+import LostItem from '../../components/LostItem';
 
 export default () => {
 
@@ -54,7 +54,9 @@ export default () => {
                     <>
                         <C.Title>Itens Perdidos</C.Title>
                         <C.ProductScroller horizonta={true} showsHorizontalScrollIndicator={false}>
-
+                            {lostList.map((item,index) => (
+                                <LostItem key={index} data={item} />
+                            ))}
                         </C.ProductScroller>
                     </>
                 }
@@ -63,7 +65,9 @@ export default () => {
                     <>
                         <C.Title>Itens Recuperados</C.Title>
                         <C.ProductScroller horizonta={true} showsHorizontalScrollIndicator={false}>
-
+                            {recovereList.map((item,index) => (
+                                    <LostItem key={index} data={item} />
+                             ))}
                         </C.ProductScroller>
                     </>
                 }

@@ -6,7 +6,7 @@ export default {
         background-color:#f5f6fa;
     `,
     Scroller: styled.ScrollView`
-        flex:1
+        flex:1;
     `,
     LoadingIcon: styled.ActivityIndicator``,
     NoListArea: styled.View`
