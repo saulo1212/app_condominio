@@ -55,7 +55,7 @@ export default () => {
                         <C.Title>Itens Perdidos</C.Title>
                         <C.ProductScroller horizonta={true} showsHorizontalScrollIndicator={false}>
                             {lostList.map((item,index) => (
-                                <LostItem key={index} data={item} />
+                                <LostItem key={index} data={item} showButton={true} refreshFunction={getFoundAndLost} />
                             ))}
                         </C.ProductScroller>
                     </>
@@ -66,7 +66,7 @@ export default () => {
                         <C.Title>Itens Recuperados</C.Title>
                         <C.ProductScroller horizonta={true} showsHorizontalScrollIndicator={false}>
                             {recovereList.map((item,index) => (
-                                    <LostItem key={index} data={item} />
+                                    <LostItem key={index} data={item} showButton={false} />
                              ))}
                         </C.ProductScroller>
                     </>

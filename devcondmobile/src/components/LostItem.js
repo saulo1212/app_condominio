@@ -1,6 +1,8 @@
 import  React from 'react';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {Alert} from 'react-native';
+import api from '../services/api';
 
 const Box = styled.View`
     width:200px;
@@ -46,7 +48,32 @@ const MineButtonText = styled.Text`
     margin-left:10px;
 `;
 
-export default ({data}) => {
+export default ({data,showButton,refreshFunction}) => {
+
+    const handleIsMine = () => {
+        Alert.alert(
+            'Confirmação',
+            'Tem certeza que este item é seu',
+            [
+                {text:'Sim, é meu', onPress:handleSetRecovered},
+                {text:'Cancelar', onPress:null, styled:'cancel'}
+            ]
+        );
+    }
+
+    const handleSetRecovered  = async () => {
+
+        const result = await api.setRecovered(data.id);
+
+        if(result.error === ''){
+            refreshFunction();
+            alert('Pegue seu Item');
+           
+        }else{
+            alert(result.error);
+        }
+    }
+
     return(
         <Box>
             <Photo source={{uri:data.photo}} resizeMode="cover" />
@@ -58,11 +85,12 @@ export default ({data}) => {
 
             <InfoTitle>Data</InfoTitle>
             <InfoText>{data.datecreated}</InfoText>
-
-            <MineButton onPress={null}>
+            {showButton &&
+            <MineButton onPress={handleIsMine}>
                 <Icon name="hand-pointer-o" size={24} color="#fff" />
                 <MineButtonText>É meu</MineButtonText>
             </MineButton>
+            }
         </Box>
     );
 }
