@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useStateValue} from '../../context/StateContext';
 import C from  './style';
 import {launchCamera} from 'react-native-image-picker';
-
+import api from '../../services/api';
 
 
 export default () => {
@@ -32,6 +32,25 @@ export default () => {
             }
 
         });
+    }
+
+    const handleSave =  async () => {
+        if(description !== '' && where !== '' && photo.uri !== ''){
+            const result = await api.addLostItem(
+                photo, description, where
+            ); 
+
+            if(result.error === ''){
+                setPhoto({});
+                setDescription('');
+                setWhere('');
+                navigation.navigate('FoundAndLodtAddScreen');
+            }else{
+                alert(result.error)
+            }
+        }else{
+            alert("Preencha os campos")
+        }
     }
 
     return(
@@ -66,7 +85,7 @@ export default () => {
                     onChangeText={t=>setWhere(t)}
                 />
 
-                <C.ButtonArea onPress={null}>
+                <C.ButtonArea onPress={handleSave}>
                     <C.ButtonText>Salvar</C.ButtonText>
                 </C.ButtonArea>
             </C.Scroller >  
