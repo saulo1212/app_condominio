@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useStateValue} from '../../context/StateContext';
 import C from  './style';
+import {launchCamera} from 'react-native-image-picker';
 
 
 
@@ -21,11 +22,35 @@ export default () => {
         
     },[]);
 
+    const handleAddPhoto = () => {
+        launchCamera({
+            mediaType:'photo',
+            maxWidth:1280
+        },(response) => {
+            if(!response.didCancel){
+                setPhoto(response);
+            }
+
+        });
+    }
+
     return(
         <C.Container>
             <C.Scroller>
                 <C.PhotoArea>
-
+                    {!photo.uri &&
+                        <C.ButtonArea onPress={handleAddPhoto}>
+                            <C.ButtonText>Tirar um foto</C.ButtonText>
+                        </C.ButtonArea>
+                    }
+                    {photo.uri &&
+                    <>
+                        <C.PhotoItem source={{uri:photo.uri}} resizeMode="cover" />
+                        <C.ButtonArea onPress={handleAddPhoto}>
+                            <C.ButtonText>Tirar outra  foto</C.ButtonText>
+                        </C.ButtonArea>
+                    </>    
+                    }
                 </C.PhotoArea>
                 <C.Title>Descreva o produto</C.Title>
                 <C.Field 
