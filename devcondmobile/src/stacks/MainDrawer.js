@@ -9,6 +9,7 @@ import ReservationScreen from '../screens/ReservationScreen';
 import ReservationAddScreen from '../screens/ReservationAddScreen';
 import ReservationMyScreen from '../screens/ReservationMyScreen';
 import FoundLostScreen from '../screens/FoundLostScreen';
+import FoundAndLodtAddScreen from '../screens/FoundAndLodtAddScreen';
 import DrawerCustom from '../components/DrawerCustom';
 
 
@@ -41,6 +42,7 @@ export default () => {
             <Drawer.Screen name="ReservationAddScreen" component={ReservationAddScreen}/>
             <Drawer.Screen name="ReservationMyScreen" component={ReservationMyScreen}/>
             <Drawer.Screen name="FoundLostScreen" component={FoundLostScreen}/>
+            <Drawer.Screen name="FoundAndLodtAddScreen" component={FoundAndLodtAddScreen}/>
            
         </Drawer.Navigator>
     )

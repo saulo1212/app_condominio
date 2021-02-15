@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useStateValue} from '../../context/StateContext';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import C from  './style';
 import api from '../../services/api';
 import LostItem from '../../components/LostItem';
@@ -14,7 +15,14 @@ export default () => {
     const[loading,setLoading]    = useState(false);
 
     useEffect(() => {
-        navigation.setOptions({headerTitle: 'Achados e perdidos'});
+        navigation.setOptions({
+            headerTitle: 'Achados e perdidos',
+            headerRight: () => (
+                <C.AddButton onPress={handleAdditem}>
+                    <Icon name="plus" size={24} color="#000" />
+                </C.AddButton>
+            )
+        });
         getFoundAndLost();
     },[]);
 
@@ -34,6 +42,10 @@ export default () => {
         }else{
             alert(result.error);
         }
+    }
+
+    const handleAdditem = () => {
+        navigation.navigate('FoundAndLodtAddScreen');
     }
 
     return(
