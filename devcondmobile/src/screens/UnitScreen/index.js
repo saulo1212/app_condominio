@@ -7,6 +7,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import UnitPeopleSection from '../../components/UnitPeopleSection';
 import UnitVeichleSection from '../../components/UnitVeichleSection';
 import UnitPetSection from '../../components/UnitPatSection';
+import UnitModalAddPerson from '../../components/UnitModalAddPerson';
+import UnitModalAddVehicle from '../../components/UnitModalAddVehicle';
+import UnitModalAddPet from '../../components/UnitModalAddPet';
 
 export default () => {
 
@@ -17,6 +20,9 @@ export default () => {
     const[peopleList, setPeopleList] = useState([]);
     const[vehicleList, setVeicleList] = useState([]);
     const[petList, setPetList] = useState([]);
+
+    const[showModal,setShowModal] = useState(false);
+    const[modalType, setModalType] = useState('');
 
     useEffect(() => {
         navigation.setOptions({headerTitle: `Dados da unidade (${context.user.property.name})`});
@@ -41,6 +47,11 @@ export default () => {
         }
     }
 
+    const handleAdd =  (type) => {
+        setModalType(type);
+        setShowModal(true);
+    }
+
     return(
         <C.Container>
             <C.Scroller>
@@ -53,7 +64,7 @@ export default () => {
                     <>
                         <C.TitleArea>
                             <C.Title>Moradores</C.Title>
-                            <C.TitleAddButton onPress={null}>
+                            <C.TitleAddButton onPress={() =>handleAdd('person')}>
                                 <Icon name="plus" size={24} color="#000" />
                             </C.TitleAddButton>
                         </C.TitleArea>
@@ -65,7 +76,7 @@ export default () => {
 
                         <C.TitleArea>
                             <C.Title>Veiculos</C.Title>
-                            <C.TitleAddButton onPress={null}>
+                            <C.TitleAddButton onPress={() =>handleAdd('vehicle')}>
                                 <Icon name="plus" size={24} color="#000" />
                             </C.TitleAddButton>
                         </C.TitleArea>
@@ -77,7 +88,7 @@ export default () => {
 
                         <C.TitleArea>
                             <C.Title>Petis</C.Title>
-                            <C.TitleAddButton onPress={null}>
+                            <C.TitleAddButton onPress={() =>handleAdd('pet')}>
                                 <Icon name="plus" size={24} color="#000" />
                             </C.TitleAddButton>
                         </C.TitleArea>
@@ -88,6 +99,37 @@ export default () => {
                 }
 
             </C.Scroller>
+
+            <C.ModalArea
+                visible={showModal}
+                transparent={true}
+                animationType="slide"
+            >
+                <C.ModalBg>
+                    <C.ModalBody>
+                        {modalType === 'person' &&
+                            <UnitModalAddPerson 
+                                refreshFunction={getUnitInfo} 
+                                setShowModal={setShowModal} 
+                            />
+                        }
+
+                       {modalType === 'vehicle' &&
+                            <UnitModalAddVehicle 
+                                refreshFunction={getUnitInfo} 
+                                setShowModal={setShowModal} 
+                            />
+                        }
+
+                        {modalType === 'pet' &&
+                            <UnitModalAddPet 
+                                refreshFunction={getUnitInfo} 
+                                setShowModal={setShowModal} 
+                            />
+                        }
+                    </C.ModalBody>  
+                </C.ModalBg>  
+            </C.ModalArea>
         </C.Container>
     )
 }
