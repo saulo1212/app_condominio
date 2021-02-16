@@ -3,6 +3,8 @@ import {useNavigation} from '@react-navigation/native';
 import {useStateValue} from '../../context/StateContext';
 import C from  './style';
 import api from '../../services/api';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import UnitPeopleSection from '../../components/UnitPeopleSection';
 
 export default () => {
 
@@ -47,7 +49,39 @@ export default () => {
 
                 {!loading &&
                     <>
+                        <C.TitleArea>
+                            <C.Title>Moradores</C.Title>
+                            <C.TitleAddButton onPress={null}>
+                                <Icon name="plus" size={24} color="#000" />
+                            </C.TitleAddButton>
+                        </C.TitleArea>
+                        <C.ListArea>
+                            <UnitPeopleSection  list={peopleList}/>
+                        </C.ListArea>
 
+
+
+                        <C.TitleArea>
+                            <C.Title>Veiculos</C.Title>
+                            <C.TitleAddButton onPress={null}>
+                                <Icon name="plus" size={24} color="#000" />
+                            </C.TitleAddButton>
+                        </C.TitleArea>
+                        <C.ListArea>
+                            
+                        </C.ListArea>
+
+
+
+                        <C.TitleArea>
+                            <C.Title>Petis</C.Title>
+                            <C.TitleAddButton onPress={null}>
+                                <Icon name="plus" size={24} color="#000" />
+                            </C.TitleAddButton>
+                        </C.TitleArea>
+                        <C.ListArea>
+                            
+                        </C.ListArea>
                     </>
                 }
 
