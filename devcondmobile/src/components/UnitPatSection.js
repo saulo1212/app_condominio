@@ -37,7 +37,7 @@ export default ({list,refreshFunction}) => {
     const handleRemove = (index) => {
         Alert.alert(
             'Confirmação',
-            'Tem certeza que deseja excluir esta pessoa?',
+            'Tem certeza que deseja excluir este pet?',
             [
                 {text:'sim', onPress:()=>removeItem(index)},
                 {text:'Cancelar', onPress:null, styled:'cancel'}
@@ -47,7 +47,7 @@ export default ({list,refreshFunction}) => {
 
     const removeItem = async  (index) => {
         let result = await api.removeUnitItem(
-            'person',
+            'pet',
             list[index].id
         );
 

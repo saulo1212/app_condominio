@@ -37,7 +37,7 @@ export default ({list,refreshFunction}) => {
     const handleRemove = (index) => {
         Alert.alert(
             'Confirmação',
-            'Tem certeza que deseja excluir esta pessoa?',
+            'Tem certeza que deseja excluir este veiculo?',
             [
                 {text:'sim', onPress:()=>removeItem(index)},
                 {text:'Cancelar', onPress:null, styled:'cancel'}
@@ -47,7 +47,7 @@ export default ({list,refreshFunction}) => {
 
     const removeItem = async  (index) => {
         let result = await api.removeUnitItem(
-            'person',
+            'vehicle',
             list[index].id
         );
 
@@ -63,8 +63,8 @@ export default ({list,refreshFunction}) => {
             {list.map((item,index) => (
                 <Item key={index}>
                     <InfoArea>
-                        <StrongText>{item.name}</StrongText>
-                        <RegularText>data de nascimento:{item.birthdate}</RegularText>
+                        <StrongText>{item.title}</StrongText>
+                        <RegularText>Cor:{item.color} - placa: {item.plate}</RegularText>
                     </InfoArea>
                     <RemoveButton onPress={() => handleRemove(index)}>
                         <Icon name="remove" color="ff0000" size={24} />

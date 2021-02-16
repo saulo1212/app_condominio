@@ -5,6 +5,8 @@ import C from  './style';
 import api from '../../services/api';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import UnitPeopleSection from '../../components/UnitPeopleSection';
+import UnitVeichleSection from '../../components/UnitVeichleSection';
+import UnitPetSection from '../../components/UnitPatSection';
 
 export default () => {
 
@@ -56,7 +58,7 @@ export default () => {
                             </C.TitleAddButton>
                         </C.TitleArea>
                         <C.ListArea>
-                            <UnitPeopleSection  list={peopleList}/>
+                            <UnitPeopleSection  list={peopleList} refreshFunction={getUnitInfo}/>
                         </C.ListArea>
 
 
@@ -68,7 +70,7 @@ export default () => {
                             </C.TitleAddButton>
                         </C.TitleArea>
                         <C.ListArea>
-                            
+                            <UnitVeichleSection list={vehicleList} refreshFunction={getUnitInfo} />
                         </C.ListArea>
 
 
@@ -80,7 +82,7 @@ export default () => {
                             </C.TitleAddButton>
                         </C.TitleArea>
                         <C.ListArea>
-                            
+                            <UnitPetSection list={petList} refreshFunction={getUnitInfo} />
                         </C.ListArea>
                     </>
                 }
