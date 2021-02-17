@@ -1,5 +1,7 @@
 import React,{useState} from 'react';
 import styled from 'styled-components/native';
+import { useStateValue } from '../context/StateContext';
+import DatePicker from 'react-native-date-picker';
 import api from '../services/api';
 
 const Box = styled.View`
@@ -43,14 +45,21 @@ const CancelButton = styled.Button`
 export default ({refreshFunction,setShowModal}) => {
 
     const[name,setName] = useState('');
-    const [race,setRace] = useState('');
+    const [date,setDate] = useState(new Date());
 
     const handleAdd = async () => {
-        if(name && race){
+        if(name && date){
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let day = date.getDay();
 
+            month = month < 10 ? '0'+month : month;
+            day = day < 10 ? '0'+day : day;
 
-            const result = await api.addUnitItem('pet',{
-                name,race
+            let birthdate = `${year}-${month}-${day}`;
+
+            const result = await api.addUnitItem('person',{
+                name, birthdate
             });
 
             if(result.error === ''){
@@ -70,22 +79,24 @@ export default ({refreshFunction,setShowModal}) => {
 
     return(
         <Box>
-            <Title>Adicionar pet</Title>
-            <Label>nome</Label>
+            <Title>Adicionar Morador</Title>
+            <Label>Nome completo</Label>
             <Field
-                placeholder="Digite o nome"
-                value={name}
+                placeholder="Digite o nome completo"
+                value={date}
                 onChangeText={t=>setName(t)}
             />
 
-            <Label>cor</Label>
-            <Field
-                placeholder="Digite a raça"
-                value={race}
-                onChangeText={t=>setRace(t)}
+            <Label>Data de Nascimento</Label>
+
+            <DatePicker
+                mode="date"
+                date={date}
+                onDateChange={setDate}
+                locale="pt-BR"
             />
 
-           <ButtonArea>
+            <ButtonArea>
                 <SaveButton title="Adicionar" onPress={handleAdd} />
                 <CancelButton title="Cancelar"  color="#ff0000" onPress={hadleCancel}/>
             </ButtonArea>

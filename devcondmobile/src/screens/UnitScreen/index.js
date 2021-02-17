@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import UnitPeopleSection from '../../components/UnitPeopleSection';
 import UnitVeichleSection from '../../components/UnitVeichleSection';
 import UnitPetSection from '../../components/UnitPatSection';
-import UnitModalAddPerson from '../../components/UnitModalAddPerson';
+import UnitModalAddPerson  from  '../../components/UnitModalAddPerson';
 import UnitModalAddVehicle from '../../components/UnitModalAddVehicle';
 import UnitModalAddPet from '../../components/UnitModalAddPet';
 
@@ -108,7 +108,7 @@ export default () => {
                 <C.ModalBg>
                     <C.ModalBody>
                         {modalType === 'person' &&
-                            <UnitModalAddPerson 
+                            <UnitModalAddPerson  
                                 refreshFunction={getUnitInfo} 
                                 setShowModal={setShowModal} 
                             />
@@ -119,14 +119,14 @@ export default () => {
                                 refreshFunction={getUnitInfo} 
                                 setShowModal={setShowModal} 
                             />
-                        }
+                    }
 
                         {modalType === 'pet' &&
                             <UnitModalAddPet 
                                 refreshFunction={getUnitInfo} 
                                 setShowModal={setShowModal} 
                             />
-                        }
+                }
                     </C.ModalBody>  
                 </C.ModalBg>  
             </C.ModalArea>
